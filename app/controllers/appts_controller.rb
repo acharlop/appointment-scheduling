@@ -1,0 +1,2 @@
+class ApptsController < ApplicationController
+end
