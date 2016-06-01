@@ -9,7 +9,6 @@ class Appt < ActiveRecord::Base
 																	after: :start_time
 
 
-
 	def self.by_id id
 		self.find_by(id: id)
 	end

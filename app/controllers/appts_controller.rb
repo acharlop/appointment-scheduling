@@ -6,15 +6,13 @@ class ApptsController < ApplicationController
 	end
 
 
-	# create return status is either:
-	# 200 if you are returning data OR
-	# 204 if nothing is being returned
+
 	def create
 		@appt = Appt.create(appt_params)
 		if @appt.save
-			render json: @appt
+			render json: @appt, status: 201
 		else
-			render json: { errors: @appt.errors.full_messages }, status: 422
+			render json: { errors: @appt.errors.full_messages }, status: 400
 		end
 	end
 
@@ -23,18 +21,21 @@ class ApptsController < ApplicationController
 	def update
 		@appt = Appt.by_id(params[:id])
 		if @appt.update(appt_params)
-			render json: @appt, status: 201
+			render json: @appt
 		else
-
+			render json: { errors: @appt.errors.full_messages }, status: 400
 		end
-
 	end
 
 
-	# status codes same as create
+	
 	def destroy
-		@appt = Appt.by_id(params[:id]).destroy
-		render json: @appt
+		@appt = Appt.by_id(params[:id])
+		if @appt
+			render json: @appt.destroy
+		else
+			render json: {errors: "appointment not found"}, status: 400
+		end
 	end
 
 
