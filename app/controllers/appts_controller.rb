@@ -11,15 +11,23 @@ class ApptsController < ApplicationController
 	# 204 if nothing is being returned
 	def create
 		@appt = Appt.create(appt_params)
-		render json: @appt
+		if @appt.save
+			render json: @appt
+		else
+			render json: { errors: @appt.errors.full_messages }, status: 422
+		end
 	end
 
 
 
 	def update
 		@appt = Appt.by_id(params[:id])
-		@appt.update(appt_params)
-		render json: @appt, status: 201
+		if @appt.update(appt_params)
+			render json: @appt, status: 201
+		else
+
+		end
+
 	end
 
 

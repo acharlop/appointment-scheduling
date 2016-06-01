@@ -1,9 +1,12 @@
 class Appt < ActiveRecord::Base
 
-	validates :start_time, :end_time, :first_name, :last_name, presence: true
+	# before_validation :str_to_date
+	validates :first_name, :last_name, presence: true
 
-	validate :appt_in_the_future
-
+	# end time validates both for better error handling
+	validates_datetime :start_time, after: lambda {Time.now}
+	validates_datetime :end_time, 	on_or_after: lambda {Time.now}, 
+																	after: :start_time
 
 	def self.by_id id
 		self.find_by(id: id)
@@ -13,9 +16,17 @@ class Appt < ActiveRecord::Base
 
 	private
 
-	def appt_in_the_future
-		errors.add(:start_time, "must be in the future") unless start_time > Time.now
-		errors.add(:end_time, 	"must be in the future") unless end_time 	 > Time.now
-		errors.add(:end_time, 	"must be after start time") unless end_time > start_time
+	def str_to_date
+		p Chronic.parse(start_time)
+		self.start_time = Chronic.parse(start_time).to_datetime
+		unless self.start_time
+			errors.add(:start_time, "must be a valid date")
+		end
+
+		if end_time
+			end_time = Chronic.parse(end_time).to_datetime
+		end
 	end
+
+
 end
