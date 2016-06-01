@@ -1,5 +1,7 @@
 class Appt < ActiveRecord::Base
 
+	after_initialize :fix_dates
+
 	validates :first_name, :last_name, presence: true
 	validate :no_current_appointment
 
@@ -29,8 +31,17 @@ class Appt < ActiveRecord::Base
 
 	private
 
+	def fix_dates
+		if start_time.year.to_s.length != 4
+			year = Time.now.year.to_s[0..1]
+			start = "#{year}#{self.start_time.to_s[2..-5]}"
+			end_d = "#{year}#{self.end_time.to_s[2..-5]}"
+			self.start_time = Chronic.parse(start)
+			self.end_time 	= Chronic.parse(end_d)
+		end
 
-	# search in 
+	end
+	
 	def no_current_appointment
 		args = {"start": start_time.to_s, "end": end_time.to_s}.stringify_keys
 		unless Appt.search(args).empty?
