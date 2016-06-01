@@ -1,7 +1,8 @@
 source 'https://rubygems.org'
 
-gem "chronic"
-
+# Enables formating of american dates 
+gem "american_date"
+# Validates datetimes
 gem "validates_timeliness"
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
