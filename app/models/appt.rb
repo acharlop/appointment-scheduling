@@ -1,12 +1,15 @@
 class Appt < ActiveRecord::Base
 
 	after_initialize :two_digit_year
+
+
+
 	validates :first_name, :last_name, presence: true
 
 	# end time validates both for better error handling
 	validates_datetime :start_time, after: lambda {Time.now}
-	validates_datetime :end_time, 	on_or_after: lambda {Time.now}, 
-																	after: :start_time
+	validates_datetime :end_time, 	on_or_after: lambda {Time.now}, after: :start_time
+
 
 
 	def self.by_id id
@@ -14,6 +17,16 @@ class Appt < ActiveRecord::Base
 	end
 
 
+
+	def self.search params
+		start_date = Chronic.parse params["start-time"]
+		start_date = start_date ? start_date.to_datetime : 100.years.ago
+
+		end_date = Chronic.parse params["end-time"]
+		end_date = end_date ? end_date.to_datetime : 100.years.from_now
+
+		where("start_time >= ? AND end_time <= ?", start_date, end_date)
+	end
 
 	private
 

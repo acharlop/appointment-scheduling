@@ -1,7 +1,7 @@
 class ApptsController < ApplicationController
 	
 	def index
-		@appts = Appt.all
+		@appts = Appt.search params
 		render json: @appts
 	end
 

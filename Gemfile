@@ -4,6 +4,8 @@ source 'https://rubygems.org'
 gem "american_date"
 # Validates datetimes
 gem "validates_timeliness"
+# better time handling
+gem "chronic"
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.2.6'
