@@ -50,9 +50,5 @@ class ApptsController < ApplicationController
 		pars[:end_time	 ] = Chronic.parse(params[:end_time	 ]).to_s
 		pars
 	end
-
-	def fix_params
-		params[:start_time] = Chronic.parse params["start_time"].to_s
-		params[:end_time	] = Chronic.parse params["end_time"	].to_s
-	end
+	
 end
