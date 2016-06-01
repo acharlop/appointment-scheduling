@@ -26,7 +26,7 @@ class Appt < ActiveRecord::Base
 		end_date = Chronic.parse params["end"]
 		end_date = end_date ? end_date.to_datetime : 100.years.from_now
 
-		where("start_time > ? AND end_time < ?", start_date, end_date)
+		where("start_time >= ? AND end_time <= ?", start_date, end_date)
 	end
 
 
