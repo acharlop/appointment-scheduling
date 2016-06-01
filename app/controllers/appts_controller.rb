@@ -6,9 +6,12 @@ class ApptsController < ApplicationController
 	end
 
 
-
+	# create return status is either:
+	# 200 if you are returning data OR
+	# 204 if nothing is being returned
 	def create
-		@appt = Appt.new(appt_params)
+		@appt = Appt.create(appt_params)
+		render json: @appt
 	end
 
 
@@ -16,16 +19,18 @@ class ApptsController < ApplicationController
 	def update
 		@appt = Appt.by_id(params[:id])
 		@appt.update(appt_params)
+		render json: @appt, status: 201
 	end
 
 
-
+	# status codes same as create
 	def destroy
 		@appt = Appt.by_id(params[:id]).destroy
+		render json: @appt
 	end
 
 
-	
+
 	private
 
 	def appt_params
