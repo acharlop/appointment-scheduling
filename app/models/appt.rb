@@ -28,6 +28,9 @@ class Appt < ActiveRecord::Base
 	end
 
 
+	def as_json(options={})
+		super(only: [:id, :first_name, :last_name, :start_time, :end_time])
+	end
 
 	private
 
