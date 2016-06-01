@@ -1,5 +1,6 @@
 class ApptsController < ApplicationController
-	
+	skip_before_filter  :verify_authenticity_token
+
 	def index
 		@appts = Appt.search params
 		render json: @appts
@@ -8,10 +9,11 @@ class ApptsController < ApplicationController
 
 
 	def create
-		@appt = Appt.create(appt_params)
+		@appt = Appt.new(appt_params)
 		if @appt.save
 			render json: @appt, status: 201
 		else
+			p @appt
 			render json: { errors: @appt.errors.full_messages }, status: 400
 		end
 	end
@@ -43,6 +45,14 @@ class ApptsController < ApplicationController
 	private
 
 	def appt_params
-		params.require(:appt).permit(:start_time, :end_time, :first_name, :last_name, :comments)
+		pars = params.require(:appt).permit(:start_time, :end_time, :first_name, :last_name, :comments)
+		pars[:start_time] = Chronic.parse(params[:start_time]).to_s
+		pars[:end_time	 ] = Chronic.parse(params[:end_time	 ]).to_s
+		pars
+	end
+
+	def fix_params
+		params[:start_time] = Chronic.parse params["start_time"].to_s
+		params[:end_time	] = Chronic.parse params["end_time"	].to_s
 	end
 end

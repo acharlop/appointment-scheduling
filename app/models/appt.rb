@@ -1,9 +1,5 @@
 class Appt < ActiveRecord::Base
 
-	after_initialize :two_digit_year
-
-
-
 	validates :first_name, :last_name, presence: true
 	validate :no_current_appointment
 
@@ -41,23 +37,5 @@ class Appt < ActiveRecord::Base
 			errors.add(:start_time, "appointment schedule overlap")
 		end
 	end
-
-	# should probably be moved to default behavior
-	# checks length of year and inserts first 2 digits if necessary
-	def two_digit_year
-		if start_time && start_time.year.to_s.length == 2
-			new_year =  four_digit_year start_time
-			self.start_time = start_time.change({year: new_year})
-		end
-		if end_time && end_time.year.to_s.to_s.length == 2
-			new_year =  four_digit_year end_time
-			self.end_time = end_time.change({year: new_year})
-		end
-	end
-
-	def four_digit_year date
-		Time.now.year.to_s[0..1] << date.year.to_s[-2..-1]
-	end
-
 
 end
