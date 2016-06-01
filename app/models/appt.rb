@@ -5,6 +5,7 @@ class Appt < ActiveRecord::Base
 
 
 	validates :first_name, :last_name, presence: true
+	validate :no_current_appointment
 
 	# end time validates both for better error handling
 	validates_datetime :start_time, after: lambda {Time.now}
@@ -19,16 +20,27 @@ class Appt < ActiveRecord::Base
 
 
 	def self.search params
-		start_date = Chronic.parse params["start-time"]
+		start_date = Chronic.parse params["start"]
 		start_date = start_date ? start_date.to_datetime : 100.years.ago
 
-		end_date = Chronic.parse params["end-time"]
+		end_date = Chronic.parse params["end"]
 		end_date = end_date ? end_date.to_datetime : 100.years.from_now
 
-		where("start_time >= ? AND end_time <= ?", start_date, end_date)
+		where("start_time > ? AND end_time < ?", start_date, end_date)
 	end
 
+
+
 	private
+
+
+	# search in 
+	def no_current_appointment
+		args = {"start": start_time.to_s, "end": end_time.to_s}.stringify_keys
+		unless Appt.search(args).empty?
+			errors.add(:start_time, "appointment schedule overlap")
+		end
+	end
 
 	# should probably be moved to default behavior
 	# checks length of year and inserts first 2 digits if necessary
