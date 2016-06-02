@@ -29,7 +29,7 @@ class Appt < ActiveRecord::Base
 
 
 	def as_json(options={})
-		super(only: [:id, :first_name, :last_name, :start_time, :end_time])
+		super(only: [:id, :first_name, :last_name, :start_time, :end_time, :comments])
 	end
 
 	private
