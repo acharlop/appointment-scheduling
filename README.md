@@ -32,7 +32,7 @@ Ruby on rails is used since is probably the most straightforward way to get a RE
 
 ## Installation
 
-The app is available on [heroku](http://scheduling-api.herokuapp.com/appts target="_blank") see below for more details.
+The app is available on <a href="http://scheduling-api.herokuapp.com/appts" target="_blank">heroku</a> see below for more details.
 
 If for some reason you want a local copy:
 
