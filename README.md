@@ -32,7 +32,7 @@ Ruby on rails is used since is probably the most straightforward way to get a RE
 
 ## Installation
 
-The app is available on <a href="http://scheduling-api.herokuapp.com/appts" target="_blank">heroku</a> see below for more details.
+The app is available on [heroku](http://scheduling-api.herokuapp.com/appts) see below for more details.
 
 If for some reason you want a local copy:
 
@@ -51,23 +51,23 @@ http://scheduling-api.herokuapp.com/appointments
 	
 ## Usage / Routes
 
-The site is available on [http://scheduling-api.herokuapp.com/appts](http://scheduling-api.herokuapp.com/appts){:target="_blank"}. 
+The site is available on [http://scheduling-api.herokuapp.com/appts](http://scheduling-api.herokuapp.com/appts). 
 
 WARNING: It might take a few seconds to wake up if nobody has touched it in a few minutes.
 
 ### List
 
-GET [http://scheduling-api.herokuapp.com/appts](http://scheduling-api.herokuapp.com/appts){:target="_blank"}
+GET [http://scheduling-api.herokuapp.com/appts](http://scheduling-api.herokuapp.com/appts)
 
 #### OPTIONS
 
 For a more detailed list the `start` and `end` parameters can be used
 
-[http://scheduling-api.herokuapp.com/appts?start=11-18-16%2011:15&end=11-19-16](http://scheduling-api.herokuapp.com/appts?start=11-18-16%2011:15&end=11-19-16){:target="_blank"}
+[http://scheduling-api.herokuapp.com/appts?start=11-18-16%2011:15&end=11-19-16](http://scheduling-api.herokuapp.com/appts?start=11-18-16%2011:15&end=11-19-16)
 
 ### Create
 
-POST [http://scheduling-api.herokuapp.com/appts](http://scheduling-api.herokuapp.com/appts){:target="_blank"}
+POST [http://scheduling-api.herokuapp.com/appts](http://scheduling-api.herokuapp.com/appts)
 
 ```javascript
 {
@@ -81,7 +81,7 @@ POST [http://scheduling-api.herokuapp.com/appts](http://scheduling-api.herokuapp
 
 A few notes
 
-1. Date and time is very user friendly using the [Chronic gem](https://github.com/mojombo/chronic){:target="_blank"} and can even handle words such as "tomorrow at 20:00" see the gem documentation for more details
+1. Date and time is very user friendly using the [Chronic gem](https://github.com/mojombo/chronic) and can even handle words such as "tomorrow at 20:00" see the gem documentation for more details
 2. All fields are required except for the "comments"
 5. Names do not have to be unique
 3. If successful the newly created object is returned
@@ -89,7 +89,7 @@ A few notes
 
 ### Update
 
-PATCH / PUT [http://scheduling-api.herokuapp.com/appts/ID](http://scheduling-api.herokuapp.com/appts/ID){:target="_blank"}
+PATCH / PUT [http://scheduling-api.herokuapp.com/appts/ID](http://scheduling-api.herokuapp.com/appts/ID)
 
 ID can be retrived from the index
 
@@ -97,10 +97,10 @@ When updating the same data validation rules apply as with creation
 
 ### Delete
 
-DELETE [http://scheduling-api.herokuapp.com/appts/ID](http://scheduling-api.herokuapp.com/appts/ID){:target="_blank"}
+DELETE [http://scheduling-api.herokuapp.com/appts/ID](http://scheduling-api.herokuapp.com/appts/ID)
 
 If successful returns the deleted object
 
 ## License
 
-Scheduling API is realeased under the [MIT License](http://www.opensource.org/licenses/MIT){:target="_blank"}
+Scheduling API is realeased under the [MIT License](http://www.opensource.org/licenses/MIT)
